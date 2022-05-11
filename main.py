@@ -56,19 +56,24 @@ class Question:
             return f"Ответ неверный, верный ответ {self.answer}\n"
 
 
-questions = []
+def main():
+    questions = []
 
-questions_list: list = json_file_to_mem('questions.json')
+    questions_list: list = json_file_to_mem('questions.json')
 
-for question in questions_list:
-    new_question = Question(question['q'], question['d'], question['a'])
-    questions.append(new_question)
+    for question in questions_list:
+        new_question = Question(question['q'], question['d'], question['a'])
+        questions.append(new_question)
 
-random.shuffle(questions)
+    random.shuffle(questions)
 
-for question in questions:
-    user_answer = input(question.build_question())
-    question.remember_answer(user_answer)
-    print(question.build_feedback())
+    for question in questions:
+        user_answer = input(question.build_question())
+        question.remember_answer(user_answer)
+        print(question.build_feedback())
 
-print(statistic(questions))
+    print(statistic(questions))
+
+
+if __name__ == "__main":
+    main()
