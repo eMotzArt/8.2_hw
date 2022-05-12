@@ -16,7 +16,7 @@ def main():
 
     for question in questions:
         user_answer = input(question.build_question())
-        question.remember_answer(user_answer)
+        question.user_answer = user_answer
         print(question.build_feedback())
 
     print(statistic(questions))

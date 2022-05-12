@@ -2,29 +2,36 @@ class Question:
     """Класс вопроса"""
 
     def __init__(self, question, complexity, answer):
-        self.question = question
-        self.complexity = int(complexity)
-        self.answer = answer
+        self.__question = question
+        self.__complexity = int(complexity)
+        self.__answer = answer
 
-        self.is_asked = False
-        self.user_answer = ""
-        self.points = self.complexity * 10
+        self.__is_asked = False
+        self.__user_answer = ""
+        self.__points = self.__complexity * 10
 
+    @property #user_input
+    def user_answer(self):
+        return self.__user_answer
+
+    @user_answer.setter
+    def user_answer(self, value):
+        self.__user_answer = value
+        self.__is_asked = True
+
+    @property #get_points
     def get_points(self):
         """Возвращает int, количество баллов.
         Баллы зависят от сложности: за 1 дается 10 баллов, за 5 дается 50 баллов.
         """
-        return self.points
+        return self.__points
 
-    def remember_answer(self, answer):
-        self.user_answer = answer
-        self.is_asked = True
-
+    @property #is_correct
     def is_correct(self):
         """Возвращает True, если ответ пользователя совпадает
         с верным ответов иначе False.
         """
-        return self.answer == self.user_answer
+        return self.__answer == self.__user_answer
 
     def build_question(self):
 
@@ -33,8 +40,8 @@ class Question:
         Сложность 4/5
         """
 
-        return f"Вопрос: {self.question}? \n" \
-               f"Сложность: {self.complexity}/5\n"
+        return f"Вопрос: {self.__question}? \n" \
+               f"Сложность: {self.__complexity}/5\n"
 
     def build_feedback(self):
 
@@ -43,7 +50,7 @@ class Question:
         или
         Ответ неверный, верный ответ __
         """
-        if self.is_correct():
-            return f"Ответ верный, получено {self.points} баллов\n"
+        if self.is_correct:
+            return f"Ответ верный, получено {self.__points} баллов\n"
         else:
-            return f"Ответ неверный, верный ответ {self.answer}\n"
+            return f"Ответ неверный, верный ответ {self.__answer}\n"
